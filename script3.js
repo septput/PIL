@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
     clearButton.addEventListener("click", clearCanvas);
     submitButton.addEventListener("click", submitForm);
     
-    
     function startDrawing(event) {
         isDrawing = true;
         context.beginPath();
@@ -47,34 +46,30 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     function getX(event) {
-        if (event.touches && event.touches.length > 0) {
-            return event.touches[0].clientX - canvas.getBoundingClientRect().left;
-        }
-        return event.clientX - canvas.getBoundingClientRect().left;
+        return event.touches && event.touches.length > 0
+            ? event.touches[0].clientX - canvas.getBoundingClientRect().left
+            : event.clientX - canvas.getBoundingClientRect().left;
     }
     
     function getY(event) {
-        if (event.touches && event.touches.length > 0) {
-            return event.touches[0].clientY - canvas.getBoundingClientRect().top;
-        }
-        return event.clientY - canvas.getBoundingClientRect().top;
+        return event.touches && event.touches.length > 0
+            ? event.touches[0].clientY - canvas.getBoundingClientRect().top
+            : event.clientY - canvas.getBoundingClientRect().top;
     }
     
     async function submitForm() {
         const name = document.getElementById("Nama").value;
-        const kepesertaan = document.querySelector("input[name='kepesertaan']:checked").nextSibling.textContent.trim();
+        const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked').id;
         const NIK = document.getElementById("NIK").value;
         const TTL = document.getElementById("TTL").value;
         const telp = document.getElementById("telp").value;
-        const alamat = document.querySelector("#alamat input").value;
+        const alamat = document.getElementById("alamat").value;
         const signatureDataUrl = canvas.toDataURL("image/png");
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbwbu_MgyJxo-HyR5dpeYAoRymfL07qwv7Lj4Sa8UFE/dev", {
+            const response = await fetch("https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     Nama: name,
                     Kepesertaan: kepesertaan,
@@ -89,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alert(data.message);
             clearCanvas();
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error during fetch:", error);
         }
     }
 });
