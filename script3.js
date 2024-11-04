@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const signatureDataUrl = canvas.toDataURL("image/png");
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbwbu_MgyJxo-HyR5dpeYAoRymfL07qwv7Lj4Sa8UFE/exec", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
