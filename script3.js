@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     Telepon: telp,
                     Alamat: alamat,
                     Kecamatan: kecamatan,
-                    SignatureData: signatureDataUrl
+                    Signature: signatureDataUrl
                 })
             });
             const data = await response.json();
