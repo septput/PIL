@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const TTL = document.getElementById("TTL").value;
         const telp = document.getElementById("telp").value;
         const alamat = document.getElementById("alamat").value;
+        const kecamatan = document.getElementById("kecamatan").value;
         const signatureDataUrl = canvas.toDataURL("image/png");
 
         try {
@@ -82,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     TanggalLahir: TTL,
                     Telepon: telp,
                     Alamat: alamat,
+                    Kecamatan: kecamatan,
                     Signature: signatureDataUrl
                 })
             });
