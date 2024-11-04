@@ -58,13 +58,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     async function submitForm() {
-        const name = document.getElementById("Nama").value;
-        const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked').id;
-        const NIK = document.getElementById("NIK").value;
-        const TTL = document.getElementById("TTL").value;
-        const telp = document.getElementById("telp").value;
-        const alamat = document.getElementById("alamat").value;
-        const signatureDataUrl = canvas.toDataURL("image/png");
+    const name = document.getElementById("Nama").value;
+    const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked').value; // Updated
+    const NIK = document.getElementById("NIK").value;
+    const TTL = document.getElementById("TTL").value;
+    const telp = document.getElementById("telp").value;
+    const alamat = document.getElementById("alamat").value;
+    const signatureDataUrl = canvas.toDataURL("image/png");
 
         try {
             const response = await fetch("https://script.google.com/macros/s/AKfycbwbu_MgyJxo-HyR5dpeYAoRymfL07qwv7Lj4Sa8UFE/exec", {
