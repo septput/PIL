@@ -1,108 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+<body>
     <section class="container">
-      <header>Daftar Hadir</header>
-      <form action="#" class="form">
-        <div class="input-box">
-          <label>Nama Lengkap</label>
-          <input type="text" id="Nama" placeholder="Masukkan Nama Lengkap" required />
-        </div>
-        <div class="kepesertaan-box">
-            <h3>Kepesertaan BPJS</h3>
-            <div class="kepesertaan-option">
-              <div class="kepesertaan" id="kepesertaan">
-                <input type="radio" id="check-TNI" name="kepesertaan" checked />
-                <label for="check-TNI">TNI</label>
-              </div>
-              <div class="kepesertaan">
-                <input type="radio" id="check-POLRI" name="kepesertaan" checked />
-                <label for="check-POLRI">POLRI</label>
-              </div>
-              <div class="kepesertaan">
-                <input type="radio" id="check-Swasta" name="kepesertaan" checked />
-                <label for="check-Swasta">Swasta</label>
-              </div>
-              <div class="kepesertaan">
-                <input type="radio" id="check-THL" name="kepesertaan" checked />
-                <label for="check-THL">THL</label>
-              </div>
-              <div class="kepesertaan">
-                <input type="radio" id="check-PPN" name="kepesertaan" checked />
-                <label for="check-PPN">PPN PN</label>
-              </div>
-              <div class="kepesertaan">
-                <input type="radio" id="check-PBPU" name="kepesertaan" checked />
-                <label for="check-PBPU">PBPU</label>
-              </div><div class="kepesertaan">
-                <input type="radio" id="check-BP" name="kepesertaan" checked />
-                <label for="check-BP">BP</label>
-              </div><div class="kepesertaan">
-                <input type="radio" id="check-PBI" name="kepesertaan" checked />
-                <label for="check-PBI">PBI JKN</label>
-              </div><div class="kepesertaan">
-                <input type="radio" id="check-Pemda" name="kepesertaan" checked />
-                <label for="check-Pemda">PBPU Pemda</label>
-              </div>
-              <div class="kepesertaan">
-                <input type="radio" id="check-other" name="kepesertaan" />
-                <label for="check-other">Belum Terdaftar</label>
-              </div>
+        <header>Daftar Hadir</header>
+        <form action="#" class="form">
+            <div class="input-box">
+                <label for="Nama">Nama Lengkap</label>
+                <input type="text" id="Nama" placeholder="Masukkan Nama Lengkap" required />
             </div>
-          </div>
-        <div class="input-box">
-          <label>NIK</label>
-          <input type="text" id="NIK" placeholder="Nomor Induk Kependudukan" required />
-        </div>
-        <div class="column">
-          <div class="input-box">
-            <label>Tanggal Lahir</label>
-            <input type="date" id="TTL" placeholder="Masukkan Tanggal Lahir" required/>
-          </div>
-          <div class="input-box">
-            <label>Nomor Telepon</label>
-            <input type="number" id="telp" placeholder="Masukkan Nomor Telepon" required />
-          </div>
-        </div>
-        <div class="input-box address" id="alamat">
-          <label>Alamat</label>
-          <input type="text" placeholder="Masukkan Alamat" required />
-          <div class="column">
-            <div class="select-box">
-              <select>
-                <option hidden>Kecamatan</option>
-                <option>Bunaken</option>
-                <option>Bunaken Kepulauan</option>
-                <option>Malalayang</option>
-                <option>Mapanget</option>
-                <option>Paal Dua</option>
-                <option>Sario</option>
-                <option>Singkil</option>
-                <option>Tikala</option>
-                <option>Tuminting</option>
-                <option>Wanea</option>
-                <option>Wenang</option>
-              </select>
+            <div class="kepesertaan-box">
+                <h3>Kepesertaan BPJS</h3>
+                <div class="kepesertaan-option" role="group" aria-labelledby="kepesertaan-group">
+                    <div class="kepesertaan" id="kepesertaan">
+                        <input type="radio" id="check-TNI" name="kepesertaan" value="TNI" />
+                        <label for="check-TNI">TNI</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-POLRI" name="kepesertaan" value="POLRI" />
+                        <label for="check-POLRI">POLRI</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-Swasta" name="kepesertaan" value="Swasta" />
+                        <label for="check-Swasta">Swasta</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-THL" name="kepesertaan" value="THL" />
+                        <label for="check-THL">THL</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-PPN" name="kepesertaan" value="PPN PN" />
+                        <label for="check-PPN">PPN PN</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-PBPU" name="kepesertaan" value="PBPU" />
+                        <label for="check-PBPU">PBPU</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-BP" name="kepesertaan" value="BP" />
+                        <label for="check-BP">BP</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-PBI" name="kepesertaan" value="PBI JKN" />
+                        <label for="check-PBI">PBI JKN</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-Pemda" name="kepesertaan" value="PBPU Pemda" />
+                        <label for="check-Pemda">PBPU Pemda</label>
+                    </div>
+                    <div class="kepesertaan">
+                        <input type="radio" id="check-other" name="kepesertaan" value="Belum Terdaftar" />
+                        <label for="check-other">Belum Terdaftar</label>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="input-box">
-          <label for="signature">Signature</label>
-          <div>
-            <canvas id="signatureCanvas"></canvas>
-            <button type="button" id="clearButton">Clear Signature</button>
-          </div>
-          
-        </div>
-        <button>Submit</button>
-      </form>
+            <div class="input-box">
+                <label for="NIK">NIK</label>
+                <input type="text" id="NIK" placeholder="Nomor Induk Kependudukan" required />
+            </div>
+            <div class="column">
+                <div class="input-box">
+                    <label for="TTL">Tanggal Lahir</label>
+                    <input type="date" id="TTL" placeholder="Masukkan Tanggal Lahir" required/>
+                </div>
+                <div class="input-box">
+                    <label for="telp">Nomor Telepon</label>
+                    <input type="number" id="telp" placeholder="Masukkan Nomor Telepon" required />
+                </div>
+            </div>
+            <div class="input-box address" id="alamat">
+                <label for="alamatInput">Alamat</label>
+                <input type="text" id="alamatInput" placeholder="Masukkan Alamat" required />
+                <div class="column">
+                    <div class="select-box">
+                        <label for="kecamatan">Kecamatan</label>
+                        <select id="kecamatan" required aria-label="Pilih Kecamatan">
+                            <option hidden>Pilih Kecamatan</option>
+                            <option>Bunaken</option>
+                            <option>Bunaken Kepulauan</option>
+                            <option>Malalayang</option>
+                            <option>Mapanget</option>
+                            <option>Paal Dua</option>
+                            <option>Sario</option>
+                            <option>Singkil</option>
+                            <option>Tikala</option>
+                            <option>Tuminting</option>
+                            <option>Wanea</option>
+                            <option>Wenang</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="signature">Signature</label>
+                <div>
+                    <canvas id="signatureCanvas" aria-label="Tanda Tangan"></canvas>
+                    <button type="button" id="clearButton" title="Hapus Tanda Tangan">Clear Signature</button>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
     </section>
-    <script src="script3.js"></script>
-  </body>
+    <script src="script.js"></script>
+</body>
 </html>
