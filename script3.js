@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const TTL = document.getElementById("TTL").value;
         const telp = document.getElementById("telp").value;
         const alamat = document.getElementById("alamat").value;
-        const kecamatan = document.querySelector('input[name="kecamatan"]:checked')?.value || "";
+        const kecamatan = document.getElementById("kecamatan").value;
         const signatureDataUrl = canvas.toDataURL("image/png");
 
         try {
