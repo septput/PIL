@@ -71,16 +71,26 @@ document.addEventListener("DOMContentLoaded", function() {
     const kecamatan = document.getElementById("kecamatan").value;
     const signatureDataUrl = canvas.toDataURL("image/png");
 
-    const callbackFunction = (data) => {
-        alert(data.message);
-        clearCanvas();
-    };
-
-    window.callback = callbackFunction;
-
-    const script = document.createElement("script");
-    script.src = `https://script.google.com/macros/s/AKfycbyHNdfvoqceCUEPXa8vK3-Gqy9qY6DJSGt46DKpq1BtsgJ_KdZ_AKbk7RqDR0PE267R/exec?Nama=${encodeURIComponent(name)}&Kepesertaan=${encodeURIComponent(kepesertaan)}&NomorIndukKependudukan=${encodeURIComponent(NIK)}&TanggalLahir=${encodeURIComponent(TTL)}&Telepon=${encodeURIComponent(telp)}&Alamat=${encodeURIComponent(alamat)}&Kecamatan=${encodeURIComponent(kecamatan)}&Signature=${encodeURIComponent(signatureDataUrl)}&callback=callback`;
-    
-    document.body.appendChild(script);
-    }
+     try {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbyHNdfvoqceCUEPXa8vK3-Gqy9qY6DJSGt46DKpq1BtsgJ_KdZ_AKbk7RqDR0PE267R/exec", {
+                method: "POST",
+                mode: 'no-cors',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    Nama: name,
+                    Kepesertaan: kepesertaan,
+                    NomorIndukKependudukan: NIK,
+                    TanggalLahir: TTL,
+                    Telepon: telp,
+                    Alamat: alamat,
+                    Kecamatan: kecamatan,
+                    Signature: signatureDataUrl
+                })
+            });
+            const data = await response.json();
+            alert(data.message);
+            clearCanvas();
+        } catch (error) {
+            console.error("Error:", error);
+     }
 });
