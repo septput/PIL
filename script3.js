@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("signatureCanvas");
     const context = canvas.getContext("2d");
     const clearButton = document.getElementById("clearButton");
-    const submitButton = document.querySelector("form button[type='submit']");
+    const form = document.getElementById("attendanceForm");
 
     let isDrawing = false;
 
@@ -18,9 +18,10 @@ document.addEventListener("DOMContentLoaded", function() {
     canvas.addEventListener("touchcancel", stopDrawing);
 
     clearButton.addEventListener("click", clearCanvas);
-    submitButton.addEventListener("click", function(event) {
-        event.preventDefault();  // Prevent form submission to allow JavaScript processing
-        submitForm();
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent default form submission
+        await submitForm();
     });
 
     function startDrawing(event) {
@@ -39,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function stopDrawing(event) {
         if (!isDrawing) return;
-        context.stroke();
         context.closePath();
         isDrawing = false;
         event.preventDefault();
@@ -50,16 +50,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function getX(event) {
-        return (event.touches && event.touches.length > 0) ?
-            event.touches[0].clientX - canvas.getBoundingClientRect().left :
-            event.clientX - canvas.getBoundingClientRect().left;
+        return event.touches?.[0]?.clientX - canvas.getBoundingClientRect().left || event.clientX - canvas.getBoundingClientRect().left;
     }
 
     function getY(event) {
-        return (event.touches && event.touches.length > 0) ?
-            event.touches[0].clientY - canvas.getBoundingClientRect().top :
-            event.clientY - canvas.getBoundingClientRect().top;
+        return event.touches?.[0]?.clientY - canvas.getBoundingClientRect().top || event.clientY - canvas.getBoundingClientRect().top;
     }
+
 
     function submitForm() {
     const name = document.getElementById("Nama").value;
