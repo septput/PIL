@@ -2,9 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("signatureCanvas");
     const context = canvas.getContext("2d");
     const clearButton = document.getElementById("clearButton");
-    const form = document.getElementById("attendanceForm");
+    const submitButton = document.querySelector("form button[type='submit']");
 
     let isDrawing = false;
+
+    // Ensure canvas width and height are set
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
     // Canvas drawing functions
     canvas.addEventListener("mousedown", startDrawing);
@@ -12,15 +16,15 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mouseout", stopDrawing);
 
-    canvas.addEventListener("touchstart", startDrawing);
-    canvas.addEventListener("touchmove", draw);
+    canvas.addEventListener("touchstart", startDrawing, { passive: false });
+    canvas.addEventListener("touchmove", draw, { passive: false });
     canvas.addEventListener("touchend", stopDrawing);
     canvas.addEventListener("touchcancel", stopDrawing);
 
     clearButton.addEventListener("click", clearCanvas);
 
-    form.addEventListener("submit", async function (event) {
-        event.preventDefault(); // Prevent default form submission
+    submitButton.addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent form submission for JS processing
         await submitForm();
     });
 
@@ -40,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function stopDrawing(event) {
         if (!isDrawing) return;
+        context.stroke();
         context.closePath();
         isDrawing = false;
         event.preventDefault();
@@ -50,11 +55,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function getX(event) {
-        return event.touches?.[0]?.clientX - canvas.getBoundingClientRect().left || event.clientX - canvas.getBoundingClientRect().left;
+        if (event.touches && event.touches.length > 0) {
+            return event.touches[0].clientX - canvas.getBoundingClientRect().left;
+        }
+        return event.clientX - canvas.getBoundingClientRect().left;
     }
 
     function getY(event) {
-        return event.touches?.[0]?.clientY - canvas.getBoundingClientRect().top || event.clientY - canvas.getBoundingClientRect().top;
+        if (event.touches && event.touches.length > 0) {
+            return event.touches[0].clientY - canvas.getBoundingClientRect().top;
+        }
+        return event.clientY - canvas.getBoundingClientRect().top;
     }
 
 
