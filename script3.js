@@ -84,9 +84,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Submitting form with signature data:", signatureDataUrl);
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbyHNdfvoqceCUEPXa8vK3-Gqy9qY6DJSGt46DKpq1BtsgJ_KdZ_AKbk7RqDR0PE267R/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbwY4PoUhBX6CD7S1PlDK1JrioS-A_8Cg2CPH6hxEZ8BgY1FeLD-WEUPNjEtfXoXUDli/exec", {
                 method: "POST",
-                mode: "no-cors",
+                mode: "cors",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     Nama: name,
@@ -99,12 +99,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     Signature: signatureDataUrl,
                 }),
             });
-            console.log("Form submitted successfully.");
-            alert("Form submitted successfully.");
-            clearCanvas();
-        } catch (error) {
-            console.error("Error submitting the form:", error);
-            alert("Failed to submit the form. Please try again.");
-        }
+
+            if (!response.ok) {
+        console.error("Server responded with an error:", response.statusText);
+        alert("Error submitting form: " + response.statusText);
+        return;
     }
-});
+
+    const data = await response.json();
+    console.log("Response from server:", data);
+    alert(data.message || "Form submitted successfully!");
+    clearCanvas();
+} catch (error) {
+    console.error("Error while sending data:", error);
+    alert("Error submitting form. Please check the console for details.");
+};
