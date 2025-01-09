@@ -4,13 +4,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const clearButton = document.getElementById("clearButton");
     const submitButton = document.querySelector("form button[type='submit']");
 
-    let isDrawing = false;
-
-    // Ensure canvas width and height are set
+    // Set canvas dimensions explicitly
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    // Canvas drawing functions
+    let isDrawing = false;
+
+    // Logging for debugging
+    console.log("Canvas initialized with size:", canvas.width, "x", canvas.height);
+
+    // Canvas drawing events
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
@@ -29,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function startDrawing(event) {
+        console.log("Start drawing");
         isDrawing = true;
         context.beginPath();
         context.moveTo(getX(event), getY(event));
@@ -37,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function draw(event) {
         if (!isDrawing) return;
+        console.log("Drawing at:", getX(event), getY(event));
         context.lineTo(getX(event), getY(event));
         context.stroke();
         event.preventDefault();
@@ -44,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function stopDrawing(event) {
         if (!isDrawing) return;
+        console.log("Stop drawing");
         context.stroke();
         context.closePath();
         isDrawing = false;
@@ -51,38 +57,36 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function clearCanvas() {
+        console.log("Canvas cleared");
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     function getX(event) {
-        if (event.touches && event.touches.length > 0) {
-            return event.touches[0].clientX - canvas.getBoundingClientRect().left;
-        }
-        return event.clientX - canvas.getBoundingClientRect().left;
+        return event.touches?.[0]?.clientX - canvas.getBoundingClientRect().left || 
+               event.clientX - canvas.getBoundingClientRect().left;
     }
 
     function getY(event) {
-        if (event.touches && event.touches.length > 0) {
-            return event.touches[0].clientY - canvas.getBoundingClientRect().top;
-        }
-        return event.clientY - canvas.getBoundingClientRect().top;
+        return event.touches?.[0]?.clientY - canvas.getBoundingClientRect().top || 
+               event.clientY - canvas.getBoundingClientRect().top;
     }
 
+    async function submitForm() {
+        const name = document.getElementById("Nama").value;
+        const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked')?.value || "";
+        const NIK = document.getElementById("NIK").value;
+        const TTL = document.getElementById("TTL").value;
+        const telp = document.getElementById("telp").value;
+        const alamat = document.getElementById("alamat").value;
+        const kecamatan = document.getElementById("kecamatan").value;
+        const signatureDataUrl = canvas.toDataURL("image/png");
 
-    function submitForm() {
-    const name = document.getElementById("Nama").value;
-    const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked')?.value || "";
-    const NIK = document.getElementById("NIK").value;
-    const TTL = document.getElementById("TTL").value;
-    const telp = document.getElementById("telp").value;
-    const alamat = document.getElementById("alamat").value;
-    const kecamatan = document.getElementById("kecamatan").value;
-    const signatureDataUrl = canvas.toDataURL("image/png");
+        console.log("Submitting form with signature data:", signatureDataUrl);
 
-     try {
+        try {
             const response = await fetch("https://script.google.com/macros/s/AKfycbyHNdfvoqceCUEPXa8vK3-Gqy9qY6DJSGt46DKpq1BtsgJ_KdZ_AKbk7RqDR0PE267R/exec", {
                 method: "POST",
-                mode: 'no-cors',
+                mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     Nama: name,
@@ -92,13 +96,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     Telepon: telp,
                     Alamat: alamat,
                     Kecamatan: kecamatan,
-                    Signature: signatureDataUrl
-                })
+                    Signature: signatureDataUrl,
+                }),
             });
-            const data = await response.json();
-            alert(data.message);
+            console.log("Form submitted successfully.");
+            alert("Form submitted successfully.");
             clearCanvas();
         } catch (error) {
-            console.error("Error:", error);
-     }
+            console.error("Error submitting the form:", error);
+            alert("Failed to submit the form. Please try again.");
+        }
+    }
 });
