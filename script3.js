@@ -1,29 +1,38 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const canvas = document.getElementById("signatureCanvas");
     const context = canvas.getContext("2d");
     const clearButton = document.getElementById("clearButton");
     const submitButton = document.querySelector("form button[type='submit']");
 
+    // Set canvas dimensions explicitly
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
     let isDrawing = false;
 
-    // Canvas drawing functions
+    // Logging for debugging
+    console.log("Canvas initialized with size:", canvas.width, "x", canvas.height);
+
+    // Canvas drawing events
     canvas.addEventListener("mousedown", startDrawing);
     canvas.addEventListener("mousemove", draw);
     canvas.addEventListener("mouseup", stopDrawing);
     canvas.addEventListener("mouseout", stopDrawing);
 
-    canvas.addEventListener("touchstart", startDrawing);
-    canvas.addEventListener("touchmove", draw);
+    canvas.addEventListener("touchstart", startDrawing, { passive: false });
+    canvas.addEventListener("touchmove", draw, { passive: false });
     canvas.addEventListener("touchend", stopDrawing);
     canvas.addEventListener("touchcancel", stopDrawing);
 
     clearButton.addEventListener("click", clearCanvas);
-    submitButton.addEventListener("click", function(event) {
-        event.preventDefault();  // Prevent form submission to allow JavaScript processing
-        submitForm();
+
+    submitButton.addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent form submission for JS processing
+        await submitForm();
     });
 
     function startDrawing(event) {
+        console.log("Start drawing");
         isDrawing = true;
         context.beginPath();
         context.moveTo(getX(event), getY(event));
@@ -32,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function draw(event) {
         if (!isDrawing) return;
+        console.log("Drawing at:", getX(event), getY(event));
         context.lineTo(getX(event), getY(event));
         context.stroke();
         event.preventDefault();
@@ -39,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function stopDrawing(event) {
         if (!isDrawing) return;
+        console.log("Stop drawing");
         context.stroke();
         context.closePath();
         isDrawing = false;
@@ -46,19 +57,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function clearCanvas() {
+        console.log("Canvas cleared");
         context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
     function getX(event) {
-        return (event.touches && event.touches.length > 0) ?
-            event.touches[0].clientX - canvas.getBoundingClientRect().left :
-            event.clientX - canvas.getBoundingClientRect().left;
+        return event.touches?.[0]?.clientX - canvas.getBoundingClientRect().left || 
+               event.clientX - canvas.getBoundingClientRect().left;
     }
 
     function getY(event) {
-        return (event.touches && event.touches.length > 0) ?
-            event.touches[0].clientY - canvas.getBoundingClientRect().top :
-            event.clientY - canvas.getBoundingClientRect().top;
+        return event.touches?.[0]?.clientY - canvas.getBoundingClientRect().top || 
+               event.clientY - canvas.getBoundingClientRect().top;
     }
 
     async function submitForm() {
