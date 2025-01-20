@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const response = await fetch("https://script.google.com/macros/s/AKfycbz9uTIBFhfvwd2phWj3Gpx-JWDuOlaj2E8JYVfe5K2RBSC01NGuoSDOi4OVOocrRK0k/exec", {
                 method: "POST",
-                mode: 'cors',
+                mode: 'no-cors',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     Nama: name,
