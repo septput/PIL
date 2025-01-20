@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
         Signature: signatureDataUrl,
     });
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbyHNdfvoqceCUEPXa8vK3-Gqy9qY6DJSGt46DKpq1BtsgJ_KdZ_AKbk7RqDR0PE267R/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbwY4PoUhBX6CD7S1PlDK1JrioS-A_8Cg2CPH6hxEZ8BgY1FeLD-WEUPNjEtfXoXUDli/exec", {
                 method: "POST",
                 mode: 'cors',
                 headers: { "Content-Type": "application/json" },
