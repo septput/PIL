@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const signatureDataUrl = canvas.toDataURL("image/png");
 
         try {
-            const response = await fetch("https://script.google.com/macros/s/AKfycbwY4PoUhBX6CD7S1PlDK1JrioS-A_8Cg2CPH6hxEZ8BgY1FeLD-WEUPNjEtfXoXUDli/exec", {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbz9uTIBFhfvwd2phWj3Gpx-JWDuOlaj2E8JYVfe5K2RBSC01NGuoSDOi4OVOocrRK0k/exec", {
                 method: "POST",
                 mode: 'cors',
                 headers: { "Content-Type": "application/json" },
