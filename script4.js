@@ -62,15 +62,25 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     async function submitForm() {
-        const name = document.getElementById("Nama").value;
-        const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked')?.value || "";
-        const NIK = document.getElementById("NIK").value;
-        const TTL = document.getElementById("TTL").value;
-        const telp = document.getElementById("telp").value;
-        const alamat = document.getElementById("alamat").value;
-        const kecamatan = document.getElementById("kecamatan").value;
-        const signatureDataUrl = canvas.toDataURL("image/png");
+    const name = document.getElementById("Nama").value;
+    const kepesertaan = document.querySelector('input[name="kepesertaan"]:checked')?.value || "";
+    const NIK = document.getElementById("NIK").value;
+    const TTL = document.getElementById("TTL").value;
+    const telp = document.getElementById("telp").value;
+    const alamat = document.getElementById("alamat").value;
+    const kecamatan = document.getElementById("kecamatan").value;
+    const signatureDataUrl = canvas.toDataURL("image/png");
 
+    console.log("Submitting form with data:", {
+        Nama: name,
+        Kepesertaan: kepesertaan,
+        NomorIndukKependudukan: NIK,
+        TanggalLahir: TTL,
+        Telepon: telp,
+        Alamat: alamat,
+        Kecamatan: kecamatan,
+        Signature: signatureDataUrl,
+    });
         try {
             const response = await fetch("https://script.google.com/macros/s/AKfycbyHNdfvoqceCUEPXa8vK3-Gqy9qY6DJSGt46DKpq1BtsgJ_KdZ_AKbk7RqDR0PE267R/exec", {
                 method: "POST",
@@ -87,11 +97,30 @@ document.addEventListener("DOMContentLoaded", function() {
                     Signature: signatureDataUrl
                 })
             });
-            const data = await response.json();
-            alert(data.message);
-            clearCanvas();
-        } catch (error) {
-            console.error("Error:", error);
+            
+            console.log("Raw response:", response);
+
+        if (!response.ok) {
+            console.error("Server responded with error:", response.status, response.statusText);
+            alert("Failed to submit form: " + response.statusText);
+            return;
         }
+
+        const data = await response.json();
+        console.log("Parsed response data:", data);
+
+        // Check if `message` exists in the response
+        if (data.message) {
+            alert(data.message);
+        } else {
+            console.error("Response does not contain 'message':", data);
+            alert("Unexpected response format. Please check the server.");
+        }
+        clearCanvas();
+    } catch (error) {
+        console.error("Error during submission:", error);
+        alert("Error submitting form. Please check console logs.");
+    }
+}
     }
 });
